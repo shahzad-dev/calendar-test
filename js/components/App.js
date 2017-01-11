@@ -1,6 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay';
 import hobbyAddMutation from './hobbyAddMutation';
+import FullCalendar from './FullCalendar';
+import events from './events';
 
 class App extends React.Component {
 
@@ -13,7 +15,6 @@ class App extends React.Component {
       super( props, context )
 
       this.state = {
-        count: 0,
       }
     }
 
@@ -30,16 +31,14 @@ _handle_OnChange = ( event ) => {
     this.setState({count: this.props.viewer.hobbies.edges.length });
  }
   render() {
+
     return (
-      <div>
-        <h1>Hobbies list (Total: {this.state.count})</h1>
-        <ul>
-          {this.props.viewer.hobbies.edges.map((edge, i) =>
-            <li key={i}>{edge.node.title} (ID: {i})</li>
-          )}
-        </ul>
-        <button onClick={this._handle_OnChange}>Add New</button>
-      </div>
+        <FullCalendar
+            eventsData={events}
+            culture='en'
+            defaultView='week'
+            defaultDate={new Date(2015, 3, 12)}
+            />
     );
   }
 }
